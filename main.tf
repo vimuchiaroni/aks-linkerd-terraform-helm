@@ -9,6 +9,8 @@ module "aks" {
 
   source = "./module"
 
+  client_id = var.client_id
+  client_secret = var.client_secret
   resource_group_name = "My-RG"
 
   # Will use existing subnet (Choose one)

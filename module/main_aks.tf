@@ -40,17 +40,12 @@ resource "azurerm_kubernetes_cluster" "k8scluster" {
     service_cidr       = var.service_cidr
     dns_service_ip     = var.dns_service_ip
     load_balancer_sku  = var.load_balancer_sku
-
-    load_balancer_profile {
-      outbound_ip_prefix_ids = var.create_prefix_ip == true ? [azurerm_public_ip_prefix.k8s_outbound_ip_prefix.0.id] : []
-    }
   }
 
   role_based_access_control {
     enabled = var.rbac
   }
 
-  depends_on = [azurerm_public_ip.ingress_ip, azurerm_public_ip_prefix.k8s_outbound_ip_prefix]
   tags       = var.tags
 }
 
@@ -63,7 +58,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "nginx_nodepool" {
   os_disk_size_gb       = var.os_disk_size_gb
   os_type               = "Linux"
   node_taints           = ["dedicated=nginx-ingress:NoSchedule"]
-  vnet_subnet_id        = var.vnet_subnet_id != "" ? var.vnet_subnet_id : azurerm_subnet.subnet.0.id
+  vnet_subnet_id        = var.vnet_subnet_id
   availability_zones    = var.availability_zones
 
   enable_auto_scaling = var.enable_autoscaling_nginx_pool

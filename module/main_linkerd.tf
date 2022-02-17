@@ -66,7 +66,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "infra_nodepool" {
   os_disk_size_gb       = var.os_disk_size_gb
   os_type               = "Linux"
   node_taints           = ["dedicated=infra:NoSchedule"]
-  vnet_subnet_id        = var.vnet_subnet_id != "" ? var.vnet_subnet_id : azurerm_subnet.subnet.0.id
+  vnet_subnet_id        = var.vnet_subnet_id
   availability_zones    = var.availability_zones
 
   enable_auto_scaling = var.enable_autoscaling_infra_pool

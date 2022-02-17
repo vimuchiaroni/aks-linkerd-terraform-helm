@@ -115,11 +115,6 @@ variable "kubernetes_version" {
   type        = string
 }
 
-variable "ssh_public_key" {
-  description = "File path for pub key"
-  type        = string
-}
-
 variable "dns_prefix" {
   description = "DNS prefix for cluster"
   type        = string
