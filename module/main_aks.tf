@@ -49,32 +49,6 @@ resource "azurerm_kubernetes_cluster" "k8scluster" {
   tags       = var.tags
 }
 
-resource "azurerm_kubernetes_cluster_node_pool" "nginx_nodepool" {
-  name                  = var.poolmachine_name_nginx_ingress
-  kubernetes_cluster_id = azurerm_kubernetes_cluster.k8scluster.id
-  vm_size               = var.vm_family_nginx_ingress
-  node_count            = var.enable_autoscaling_nginx_pool == false ? var.replica_count : null
-  max_pods              = var.max_pods
-  os_disk_size_gb       = var.os_disk_size_gb
-  os_type               = "Linux"
-  node_taints           = ["dedicated=nginx-ingress:NoSchedule"]
-  vnet_subnet_id        = var.vnet_subnet_id
-  availability_zones    = var.availability_zones
-
-  enable_auto_scaling = var.enable_autoscaling_nginx_pool
-  max_count           = var.enable_autoscaling_nginx_pool == true ? var.autoscaling_nginx_pool_max_count : null
-  min_count           = var.enable_autoscaling_nginx_pool == true ? var.autoscaling_nginx_pool_min_count : null
-
-  tags = var.tags
-  lifecycle {
-    ignore_changes = [
-      # See https://www.terraform.io/docs/providers/azurerm/r/kubernetes_cluster.html#tags-1
-      # and https://www.terraform.io/docs/configuration/resources.html#ignore_changes
-      tags,
-    ]
-  }
-}
-
 # kube config and helm init
 resource "local_file" "kube_config" {
   # kube config

@@ -56,11 +56,6 @@ variable "poolmachine_name_application" {
   default     = "poolapp"
 }
 
-variable "poolmachine_name_nginx_ingress" {
-  description = "Name of nodepool (for nginx ingress)"
-  type        = string
-  default     = "poolnginx"
-}
 
 variable "os_type" {
   description = "OS Type"
@@ -88,24 +83,6 @@ variable "autoscaling_app_pool_max_count" {
 
 variable "autoscaling_app_pool_min_count" {
   description = "Min number of nodes for app pool."
-  type        = number
-  default     = 2
-}
-
-variable "enable_autoscaling_nginx_pool" {
-  description = "Enable/disable autoscaling for nginx pool"
-  type        = bool
-  default     = false
-}
-
-variable "autoscaling_nginx_pool_max_count" {
-  description = "Max number of nodes for nginx pool."
-  type        = number
-  default     = 4
-}
-
-variable "autoscaling_nginx_pool_min_count" {
-  description = "Min number of nodes for nginx pool."
   type        = number
   default     = 2
 }
@@ -205,33 +182,6 @@ variable "gitlab_variable_environment_scope" {
   description = "Environment scope for gitlab variable"
 }
 
-# Nginx Ingress
-variable "nginx_ingress_chart_version" {
-  default     = "1.17.0"
-  description = "Version of nginx-ingress chart to use."
-}
-
-variable "nginx_ingress_controller_image_tag" {
-  default     = "0.25.1"
-  description = "Tag image of nginx controller based in quay.io/kubernetes-ingress-controller/nginx-ingress-controller repository."
-}
-
-variable "nginx_ingress_run_as_user" {
-  default     = 33
-  description = "Userid to run nginx process."
-}
-
-variable "replica_count" {
-  default     = 2
-  description = "Number of replicas for nginx controller"
-}
-
-variable "vm_family_nginx_ingress" {
-  default     = "Standard_D2s_v3"
-  description = "VM Size of nginx ingress nodes"
-  type        = string
-}
-
 variable "enable_autoscaling" {
   default     = false
   description = "Enable or disable autoscaling controller for nginx ingress"
@@ -272,12 +222,6 @@ variable "metrics_enabled" {
   default     = false
   type        = bool
   description = "Enable or disable promotheus metrics"
-}
-
-variable "stats_enabled" {
-  default     = false
-  type        = bool
-  description = "Enable or disable stats page nginx"
 }
 
 variable "enable_local_traffic_policy" {

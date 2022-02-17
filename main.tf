@@ -35,17 +35,6 @@ module "aks" {
   # Helm
   k8s_kube_config = pathexpand("~/.kube/k8s-linkerd")
 
-  # Nginx Ingress
-  nginx_ingress_controller_image_tag = "v1.1.0"
-  nginx_ingress_run_as_user = 101 # if nginx_ingress_controller_image_tag >= 0.27.0, value must be 101. Otherwise, 33 (default)
-  nginx_ingress_chart_version = "4.0.13"
-  replica_count = 2
-  enable_autoscaling = true
-  load_balancer_sku = "Standard" # Needs to match with "public_ip_sku" value
-  public_ip_sku = "Standard" # Needs to match with "load_balancer_sku" value
-
-  # Cert-manager
-  cert_manager_chart_version = "v1.4.0"
 
   #ip Prefix
   create_prefix_ip = true
@@ -53,15 +42,4 @@ module "aks" {
   ip_prefix_sku = "Standard"
   ip_prefix_length = 31
 
-  enable_local_traffic_policy = true
-  max_replica_count = 11
-  target_cpu_utilization = "60"
-  target_memory_utilization = "60"
-  cpu_requests = "250m"
-  memory_requests = "256Mi"
-  cpu_limits_resource = "500m"
-  memory_limits_resource = "512Mi"
-  metrics_enabled = true
-  stats_enabled = true
-  vm_family_nginx_ingress = "Standard_D2s_v3"
 }
