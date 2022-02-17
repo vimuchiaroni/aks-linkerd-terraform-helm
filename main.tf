@@ -42,4 +42,8 @@ module "aks" {
   ip_prefix_sku = "Standard"
   ip_prefix_length = 31
 
+  #Linkerd
+  #set it to true if a HA/production environment is required. If enabled a 3 node nodepool will be created to host linkerd controle plane services
+  linkerd_ha = false
+
 }
