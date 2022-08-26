@@ -1,10 +1,3 @@
-provider "azurerm" {
-  version = "~> 2.90.0"
-  features {}
-  skip_provider_registration = true
-}
-
-
 module "aks" {
 
   source = "./module"
